@@ -1,0 +1,17 @@
+---
+- hosts: all
+  tasks:
+    - name: Remove unneeded packages
+      apt:
+        autoremove: yes
+        update_cache: no
+        name:
+          - task-desktop
+          - task-xfce-desktop
+          - lightdm
+          - lightdm-gtk-greeter
+          - pluma
+          - xinit
+          - xserver-xorg
+          - chromium-browser-odroid
+        state: absent

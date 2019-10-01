@@ -1,0 +1,16 @@
+- name: Install PHP-FPM packages
+  apt:
+    name:
+      - 'php'
+      - 'php-fpm'
+      - 'php-cli'
+      - 'php-mysql'
+      - 'php-imap'
+      - 'php-curl'
+      - 'php-zip'
+
+- name: Enable Apache's proxy fcgi module
+  command: a2enmod proxy_fcgi
+
+- name: Enable PHP FPM for Apache
+  command: a2enconf php7.3-fpm

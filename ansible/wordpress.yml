@@ -1,0 +1,12 @@
+---
+- name: Configure a WordPress
+  hosts: all
+  become: true
+  become_user: root
+  roles:
+    - base
+    - role: apache
+      tags: [apache]
+    - role: mariadb
+      tags: [mariadb]
+    - php-fpm

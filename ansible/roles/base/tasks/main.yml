@@ -1,0 +1,6 @@
+---
+- name: Install base packages
+  apt:
+    name:
+      - aptitude
+      - python-pymysql
