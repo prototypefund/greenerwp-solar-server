@@ -8,6 +8,9 @@
       - 'php-imap'
       - 'php-curl'
       - 'php-zip'
+      - 'php-gd'
+      - 'php-imagick'
+      - 'php-bcmath'
 
 - name: Enable Apache's proxy fcgi module
   command: a2enmod proxy_fcgi

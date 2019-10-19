@@ -1,0 +1,7 @@
+---
+- name: Install certbot
+  apt:
+    pkg:
+      - certbot
+# - name: Reload nginx after renewal
+#   lineinfile: dest=/lib/systemd/system/certbot.service regexp="certbot -q renew" line="ExecStart=/usr/bin/certbot -q renew --renew-hook '/etc/init.d/nginx reload'"

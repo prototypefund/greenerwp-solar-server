@@ -4,3 +4,4 @@
     name:
       - aptitude
       - python-pymysql
+    update_cache: yes

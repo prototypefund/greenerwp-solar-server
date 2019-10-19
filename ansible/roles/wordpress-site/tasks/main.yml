@@ -1,0 +1,24 @@
+---
+- name: Check LetsEncrypt certificate existence
+  stat: path=/etc/letsencrypt/live/{{server_name}}/privkey.pem
+  register: letsencrypt_certificate_exists
+
+- name: Copy Apache site config file
+  template: src=apache.conf dest=/etc/apache2/sites-available/000-default.conf owner=root group=root mode=0644
+  notify: Restart Apache
+
+- name: Enable Apache's SSL module
+  apache2_module:
+    state: present
+    name: ssl
+
+- name: Generate LetsEncrypt certificates
+  command: certbot certonly --noninteractive -m {{ admin_email }} --keep --agree-tos --webroot -w /var/www/html -d {{server_name}}
+  args:
+    creates: /etc/letsencrypt/live/{{ server_name }}/privkey.pem
+
+- name: Create WordPress database
+  mysql_db: name={{ app_name }} state=present login_unix_socket=/var/run/mysqld/mysqld.sock
+
+- name: Create WordPress database user
+  mysql_user: name={{ app_name }} password={{ app_db_password }} priv={{ app_name }}.*:ALL host='localhost' state=present login_unix_socket=/var/run/mysqld/mysqld.sock
